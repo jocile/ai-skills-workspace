@@ -6,6 +6,7 @@
 ## 🎯 Propósito Principal
 
   Criar README.md "absurdamente thorough" (exaustivos) que servem três propósitos:
+
   1. Desenvolvimento Local - Ajudar desenvolvedores a rodar o app localmente em minutos
   2. Entendimento do Sistema - Explicar detalhadamente como o app funciona
   3. Deploy de Produção - Cobrir tudo necessário para deploy e manutenção
@@ -13,10 +14,11 @@
 ## 📋 Quando Usar
 
   Use este skill quando:
-  - User quer criar/atualizar um README.md
-  - Commands like "write readme", "create readme"
-  - Solicitações de documentação do projeto
-  - Ajuda com README.md
+
+- User quer criar/atualizar um README.md
+- Commands like "write readme", "create readme"
+- Solicitações de documentação do projeto
+- Ajuda com README.md
 
 ## ⚙️  Metodologia
 
@@ -89,11 +91,12 @@
 ## 🎁 Formato de Output
 
   O skill gera:
-  - Markdown formatado corretamente
-  - Code blocks com language hints (bash, typescript)
-  - Tabelas onde apropriado (environment variables, scripts)
-  - Hierarquia clara seções
-  - Linkable TOC para documentos longos
+
+- Markdown formatado corretamente
+- Code blocks com language hints (bash, typescript)
+- Tabelas onde apropriado (environment variables, scripts)
+- Hierarquia clara seções
+- Linkable TOC para documentos longos
 
   Escrito diretamente em README.md no root do projeto.
 
@@ -105,10 +108,10 @@
 
 ## 📚 Origem & Metadata
 
-  - Source: GitHub - Shpigford's skills repository
-  - Date Added: 2026-02-27
-  - Risk Level: safe (não requer permissões especiais)
-  - Metadata:
+- Source: GitHub - Shpigford's skills repository
+- Date Added: 2026-02-27
+- Risk Level: safe (não requer permissões especiais)
+- Metadata:
   type: reference (provavelmente user-defined ou skill library)
   description: Documentation generator for comprehensive README.md files
 

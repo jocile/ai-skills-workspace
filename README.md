@@ -34,7 +34,7 @@ Para um projeto de análise e manutenção de skills de agentes de IA (no format
 **Comandos de Empacotamento e Validação:**
 
 ```bash
-# Criar nova技能 a partir do template:
+# Criar nova skill a partir do template:
 python /mnt/c/Users/jocil/Downloads/ai-skills-workspace/skills/readme/scripts/package_skill.py my-skill --path ./skills/my-skill
 
 # Validar skill antes de empacar (verifica frontmatter, diretórios obrigatórios):

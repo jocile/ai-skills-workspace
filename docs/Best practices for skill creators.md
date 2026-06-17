@@ -53,7 +53,7 @@ Once a skill activates, its full `SKILL.md` body loads into the agent’s contex
 
 Focus on what the agent *wouldn’t* know without your skill: project-specific conventions, domain-specific procedures, non-obvious edge cases, and the particular tools or APIs to use. You don’t need to explain what a PDF is, how HTTP works, or what a database migration does.
 
-```markdown
+````markdown
 <!-- Too verbose — the agent already knows what PDFs are -->
 ## Extract PDF text
 
@@ -67,13 +67,13 @@ use a library. pdfplumber is recommended because it handles most cases well.
 Use pdfplumber for text extraction. For scanned documents, fall back to
 pdf2image with pytesseract.
 
-\`\`\`python
+```python
 import pdfplumber
 
 with pdfplumber.open("file.pdf") as pdf:
     text = pdf.pages[0].extract_text()
-\`\`\`
 ```
+````
 
 Ask yourself about each piece of content: “Would the agent get this wrong without this instruction?” If the answer is no, cut it. If you’re unsure, test it. And if the agent already handles the entire task well without the skill, the skill may not be adding value. See [Evaluating skill output quality](https://agentskills.io/skill-creation/evaluating-skills) for how to test this systematically.
 
@@ -110,17 +110,17 @@ Not every part of a skill needs the same level of prescriptiveness. Match the sp
 
 **Be prescriptive** when operations are fragile, consistency matters, or a specific sequence must be followed:
 
-```markdown
+````markdown
 ## Database migration
 
 Run exactly this sequence:
 
-\`\`\`bash
+```bash
 python scripts/migrate.py --verify --backup
-\`\`\`
+```
 
 Do not modify the command or add additional flags.
-```
+````
 
 Most skills have a mix. Calibrate each part independently.
 
@@ -128,19 +128,19 @@ Most skills have a mix. Calibrate each part independently.
 
 When multiple tools or approaches could work, pick a default and mention alternatives briefly rather than presenting them as equal options.
 
-```markdown
+````markdown
 <!-- Too many options -->
 You can use pypdf, pdfplumber, PyMuPDF, or pdf2image...
 
 <!-- Clear default with escape hatch -->
 Use pdfplumber for text extraction:
 
-\`\`\`python
+```python
 import pdfplumber
-\`\`\`
+```
 
 For scanned PDFs requiring OCR, use pdf2image with pytesseract instead.
-```
+````
 
 ### Favor procedures over declarations
 
@@ -148,12 +148,12 @@ A skill should teach the agent *how to approach* a class of problems, not *what 
 
 ```markdown
 <!-- Specific answer — only useful for this exact task -->
-Join the \`orders\` table to \`customers\` on \`customer_id\`, filter where
-\`region = 'EMEA'\`, and sum the \`amount\` column.
+Join the `orders` table to `customers` on `customer_id`, filter where
+`region = 'EMEA'`, and sum the `amount` column.
 
 <!-- Reusable method — works for any analytical query -->
-1. Read the schema from \`references/schema.yaml\` to find relevant tables
-2. Join tables using the \`_id\` foreign key convention
+1. Read the schema from `references/schema.yaml` to find relevant tables
+2. Join tables using the `_id` foreign key convention
 3. Apply any filters from the user's request as WHERE clauses
 4. Aggregate numeric columns as needed and format as a markdown table
 ```
@@ -171,12 +171,12 @@ The highest-value content in many skills is a list of gotchas — environment-sp
 ```markdown
 ## Gotchas
 
-- The \`users\` table uses soft deletes. Queries must include
-  \`WHERE deleted_at IS NULL\` or results will include deactivated accounts.
-- The user ID is \`user_id\` in the database, \`uid\` in the auth service,
-  and \`accountId\` in the billing API. All three refer to the same value.
-- The \`/health\` endpoint returns 200 as long as the web server is running,
-  even if the database connection is down. Use \`/ready\` to check full
+- The `users` table uses soft deletes. Queries must include
+  `WHERE deleted_at IS NULL` or results will include deactivated accounts.
+- The user ID is `user_id` in the database, `uid` in the auth service,
+  and `accountId` in the billing API. All three refer to the same value.
+- The `/health` endpoint returns 200 as long as the web server is running,
+  even if the database connection is down. Use `/ready` to check full
   service health.
 ```
 
@@ -188,12 +188,12 @@ When an agent makes a mistake you have to correct, add the correction to the got
 
 When you need the agent to produce output in a specific format, provide a template. This is more reliable than describing the format in prose, because agents pattern-match well against concrete structures. Short templates can live inline in `SKILL.md`; for longer templates, or templates only needed in certain cases, store them in `assets/` and reference them from `SKILL.md` so they only load when needed.
 
-```markdown
+````markdown
 ## Report structure
 
 Use this template, adapting sections as needed for the specific analysis:
 
-\`\`\`markdown
+```markdown
 # [Analysis Title]
 
 ## Executive summary
@@ -206,8 +206,8 @@ Use this template, adapting sections as needed for the specific analysis:
 ## Recommendations
 1. Specific actionable recommendation
 2. Specific actionable recommendation
-\`\`\`
 ```
+````
 
 ### Checklists for multi-step workflows
 
@@ -217,11 +217,11 @@ An explicit checklist helps the agent track progress and avoid skipping steps, e
 ## Form processing workflow
 
 Progress:
-- [ ] Step 1: Analyze the form (run \`scripts/analyze_form.py\`)
-- [ ] Step 2: Create field mapping (edit \`fields.json\`)
-- [ ] Step 3: Validate mapping (run \`scripts/validate_fields.py\`)
-- [ ] Step 4: Fill the form (run \`scripts/fill_form.py\`)
-- [ ] Step 5: Verify output (run \`scripts/verify_output.py\`)
+- [ ] Step 1: Analyze the form (run `scripts/analyze_form.py`)
+- [ ] Step 2: Create field mapping (edit `fields.json`)
+- [ ] Step 3: Validate mapping (run `scripts/validate_fields.py`)
+- [ ] Step 4: Fill the form (run `scripts/fill_form.py`)
+- [ ] Step 5: Verify output (run `scripts/verify_output.py`)
 ```
 
 ### Validation loops
@@ -232,7 +232,7 @@ Instruct the agent to validate its own work before moving on. The pattern is: do
 ## Editing workflow
 
 1. Make your edits
-2. Run validation: \`python scripts/validate.py output/\`
+2. Run validation: `python scripts/validate.py output/`
 3. If validation fails:
    - Review the error message
    - Fix the issues
@@ -249,14 +249,14 @@ For batch or destructive operations, have the agent create an intermediate plan 
 ```markdown
 ## PDF form filling
 
-1. Extract form fields: \`python scripts/analyze_form.py input.pdf\` → \`form_fields.json\`
+1. Extract form fields: `python scripts/analyze_form.py input.pdf` → `form_fields.json`
    (lists every field name, type, and whether it's required)
-2. Create \`field_values.json\` mapping each field name to its intended value
-3. Validate: \`python scripts/validate_fields.py form_fields.json field_values.json\`
+2. Create `field_values.json` mapping each field name to its intended value
+3. Validate: `python scripts/validate_fields.py form_fields.json field_values.json`
    (checks that every field name exists in the form, types are compatible, and
    required fields aren't missing)
-4. If validation fails, revise \`field_values.json\` and re-validate
-5. Fill the form: \`python scripts/fill_form.py input.pdf field_values.json output.pdf\`
+4. If validation fails, revise `field_values.json` and re-validate
+5. Fill the form: `python scripts/fill_form.py input.pdf field_values.json output.pdf`
 ```
 
 The key ingredient is step 3: a validation script that checks the plan (`field_values.json`) against the source of truth (`form_fields.json`). Errors like “Field ‘signature\_date’ not found — available fields: customer\_name, order\_total, signature\_date\_signed” give the agent enough information to self-correct.
